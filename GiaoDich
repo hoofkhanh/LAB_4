@@ -1,0 +1,92 @@
+import java.time.LocalDate;
+import java.util.Scanner;
+
+public abstract class GiaoDich {
+	private String maGiaoDich;
+	private LocalDate ngayGiaoDich;
+	private double donGia;
+	private double dienTich;
+	private String ten;
+	
+	public GiaoDich(String maGiaoDich, LocalDate ngayGiaoDich, double donGia, double dienTich,String ten) {
+		this.maGiaoDich = maGiaoDich;
+		this.ngayGiaoDich = ngayGiaoDich;
+		this.donGia = donGia;
+		this.dienTich = dienTich;
+		this.ten= ten;
+	}
+
+	public GiaoDich() {
+	}
+	
+	public String getMaGiaoDich() {
+		return maGiaoDich;
+	}
+
+	public void setMaGiaoDich(String maGiaoDich) {
+		this.maGiaoDich = maGiaoDich;
+	}
+
+	public LocalDate getNgayGiaoDich() {
+		return ngayGiaoDich;
+	}
+
+	public void setNgayGiaoDich(LocalDate ngayGiaoDich) {
+		this.ngayGiaoDich = ngayGiaoDich;
+	}
+
+	public double getDonGia() {
+		return donGia;
+	}
+
+	public void setDonGia(double donGia) {
+		this.donGia = donGia;
+	}
+
+	public double getDienTich() {
+		return dienTich;
+	}
+
+	public void setDienTich(double dienTich) {
+		this.dienTich = dienTich;
+	}
+	
+	public String getTen() {
+		return ten;
+	}
+
+	public void setTen(String ten) {
+		this.ten = ten;
+	}
+	
+	@Override
+	public String toString() {
+		return "GiaoDich [maGiaoDich=" + maGiaoDich +", tên = "+this.ten+ ", ngayGiaoDich=" + ngayGiaoDich + ", donGia=" + donGia
+				+ ", dienTich=" + dienTich+"]";
+	}
+	
+	public abstract double thanhTien() ;
+	
+	public void nhap() {
+		Scanner sc =new Scanner(System.in);
+		System.out.println("Nhập mã giao dịch");
+		this.setMaGiaoDich(sc.nextLine());
+		
+		System.out.println("Nhập tên");
+		this.setTen(sc.nextLine());
+		
+		System.out.println("Nhập ngày giao dịch");
+		String date = sc.nextLine();
+		String dateGD[] = date.split("/");
+		int day = Integer.parseInt(dateGD[0]);
+		int month = Integer.parseInt(dateGD[1]);
+		int year = Integer.parseInt(dateGD[2]);
+		this.ngayGiaoDich = LocalDate.of(year, month, day);
+		
+		System.out.println("Nhập đơn giá");
+		this.setDonGia(sc.nextDouble());
+		
+		System.out.println("Nhập diện tích");
+		this.setDienTich(sc.nextDouble());
+	}
+}
