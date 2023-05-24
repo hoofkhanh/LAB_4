@@ -1,0 +1,80 @@
+package bai_3;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class DiemHocVien {
+	private String hoTen;
+	private DiemMonHoc diem;
+	private LocalDate namSinh;
+
+	public DiemHocVien(String hoTen, DiemMonHoc diem, LocalDate namSinh) {
+		this.hoTen = hoTen;
+		this.diem = diem;
+		this.namSinh = namSinh;
+	}
+
+	public DiemHocVien() {
+	}
+
+	public String getHoTen() {
+		return hoTen;
+	}
+
+	public void setHoTen(String hoTen) {
+		this.hoTen = hoTen;
+	}
+
+	public DiemMonHoc getDiem() {
+		return diem;
+	}
+
+	public void setDiem(DiemMonHoc diem) {
+		this.diem = diem;
+	}
+
+	public LocalDate getNamSinh() {
+		return namSinh;
+	}
+
+	public void setNamSinh(LocalDate namSinh) {
+		this.namSinh = namSinh;
+	}
+
+	@Override
+	public String toString() {
+		return "DiemHocVien [hoTen=" + hoTen + ", diem=" + diem.toString() + ", namSinh=" + namSinh + "]";
+	}
+
+	public void nhap() {
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("NHẬP họ tên");
+		this.setHoTen(sc.nextLine());
+
+		this.diem =new DiemMonHoc();
+		this.diem.nhap();
+
+		System.out.println("Nhập năm sinh ");
+		String date = sc.nextLine();
+		String date1[] = date.split("/");
+		int day = Integer.parseInt(date1[0]);
+		int month = Integer.parseInt(date1[1]);
+		int year = Integer.parseInt(date1[2]);
+		this.namSinh = LocalDate.of(year, month, day);
+	}
+
+	public boolean rot() {
+		if (this.diem.getDiemMon1() < 5 || this.diem.getDiemMon2() < 5 || this.diem.getDiemMon3() < 5
+				|| this.diem.getDiemMon4() < 5 || this.diem.getDiemMon5() < 5) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public double diemTB() {
+		return (this.getDiem().getDiemMon1() + this.getDiem().getDiemMon2() +this.getDiem().getDiemMon3() +this.getDiem().getDiemMon4() +this.getDiem().getDiemMon5())/5; 
+	}
+}
