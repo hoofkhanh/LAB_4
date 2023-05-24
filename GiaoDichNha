@@ -1,0 +1,60 @@
+import java.time.LocalDate;
+import java.util.Scanner;
+
+public class GiaoDichNha extends GiaoDich {
+	private String loaiNha;
+	private String diaChi;
+
+	public GiaoDichNha(String maGiaoDich, LocalDate ngayGiaoDich, double donGia, double dienTich, String loaiNha,
+			String diaChi,String ten) {
+		super(maGiaoDich, ngayGiaoDich, donGia, dienTich,ten);
+		this.loaiNha = loaiNha;
+		this.diaChi = diaChi;
+	}
+
+	public GiaoDichNha() {
+	}
+
+	public String getLoaiNha() {
+		return loaiNha;
+	}
+
+	public void setLoaiNha(String loaiNha) {
+		this.loaiNha = loaiNha;
+	}
+
+	public String getDiaChi() {
+		return diaChi;
+	}
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
+	
+	@Override
+	public String toString() {
+		return super.toString()+"GiaoDichNha [loaiNha=" + loaiNha + ", diaChi=" + diaChi + ", thành tiền = "+thanhTien()+"]";
+	}
+
+	@Override
+	public double thanhTien() {
+		if(this.loaiNha.equals("cao cấp")) {
+			return super.getDienTich() * super.getDonGia();
+		}else {
+			return super.getDienTich()*super.getDonGia()* 0.9;
+		}
+	}
+	
+	public void nhap() {
+		Scanner sc =new Scanner(System.in);
+		super.nhap();
+		do {
+			System.out.println("nhập loại nhà");
+			this.setLoaiNha(sc.nextLine());
+		}while(this.loaiNha.equals("cao cấp")==false && this.loaiNha.equals("thường")==false);
+		
+		System.out.println("Nhập địa chỉ");
+		this.setDiaChi(sc.nextLine());
+	}
+
+}
