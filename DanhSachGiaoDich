@@ -39,12 +39,14 @@ public class DanhSachGiaoDich {
 
 	public double tinhTrungBinhThanhTienGGD() {
 		double tong = 0;
+		int o=0;
 		for (GiaoDich giaoDich : list) {
 			if (giaoDich instanceof GiaoDichDat) {
 				tong += giaoDich.thanhTien();
+				o++;
 			}
 		}
-		return tong;
+		return tong*o;
 	}
 
 	public void xuatTheoDate() {
