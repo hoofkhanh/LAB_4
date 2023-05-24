@@ -1,0 +1,112 @@
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class DanhSachGiaoDich {
+	private ArrayList<GiaoDich> list;
+
+	public DanhSachGiaoDich(ArrayList<GiaoDich> list) {
+		this.list = list;
+	}
+
+	public DanhSachGiaoDich() {
+		this.list = new ArrayList<GiaoDich>();
+	}
+
+	public boolean them(GiaoDich gd) {
+		return this.list.add(gd);
+	}
+
+	public int tinhTongSoLuongGiaoDichDat() {
+		int soGDD = 0;
+		for (GiaoDich giaoDich : list) {
+			if (giaoDich instanceof GiaoDichDat) {
+				soGDD++;
+			}
+		}
+		return soGDD;
+	}
+
+	public int tinhTongSoLuongGiaoDichNha() {
+		int soGDN = 0;
+		for (GiaoDich giaoDich : list) {
+			if (giaoDich instanceof GiaoDichNha) {
+				soGDN++;
+			}
+		}
+		return soGDN;
+	}
+
+	public double tinhTrungBinhThanhTienGGD() {
+		double tong = 0;
+		for (GiaoDich giaoDich : list) {
+			if (giaoDich instanceof GiaoDichDat) {
+				tong += giaoDich.thanhTien();
+			}
+		}
+		return tong;
+	}
+
+	public void xuatTheoDate() {
+		for (GiaoDich giaoDich : list) {
+			if (giaoDich.getNgayGiaoDich().equals(LocalDate.now())) {
+				System.out.println(giaoDich);
+			}
+		}
+	}
+
+	public void xuat() {
+		for (GiaoDich giaoDich : list) {
+			System.out.println(giaoDich);
+		}
+	}
+
+	public void menu() {
+		int chon = 0;
+		Scanner sc = new Scanner(System.in);
+		do {
+			System.out.println("1. Nhập danh sách");
+			System.out.println("2. Xuất danh sách");
+			System.out.println("3. số lượng giao dịch đất");
+			System.out.println("4. số lượng giao dịch nhà");
+			System.out.println("5. tính trung bình thành tiền giao dịch đất");
+			System.out.println("6. Xuất giao dịch date 24/5/2023");
+			chon = sc.nextInt();
+
+			if (chon == 1) {
+				int luaChon = 0;
+				GiaoDich gd;
+				do {
+					System.out.println("1. Nhập giao dịch đất");
+					System.out.println("2. nhập giao dịch nhà");
+					luaChon = sc.nextInt();
+
+					if (luaChon == 1) {
+						gd = new GiaoDichDat();
+						gd.nhap();
+						System.out.println("thêm : " + this.them(gd));
+					} else if (luaChon == 2) {
+						gd = new GiaoDichNha();
+						gd.nhap();
+						System.out.println("thêm : " + this.them(gd));
+					} else {
+						System.out.println("vui lòng nhập đúng");
+					}
+				} while (luaChon != 1 && luaChon != 2);
+
+			} else if (chon == 2) {
+				this.xuat();
+			} else if (chon == 3) {
+				System.out.println("số lượng giao dịch đất : " + this.tinhTongSoLuongGiaoDichDat());
+			} else if (chon == 4) {
+				System.out.println("số lượng giao dịch nhà : " + this.tinhTongSoLuongGiaoDichNha());
+			} else if (chon == 5) {
+				System.out.println("trung bình thành tiền giao dịch đất : " + this.tinhTrungBinhThanhTienGGD());
+			} else if (chon == 6) {
+				this.xuatTheoDate();
+			} else {
+				System.out.println("Vui lòng nhập đúng");
+			}
+		} while (chon != 0);
+	}
+}
