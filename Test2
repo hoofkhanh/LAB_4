@@ -1,0 +1,8 @@
+package bai_2;
+
+public class Test {
+	public static void main(String[] args) {
+		DanhSachHoaDon list = new DanhSachHoaDon();
+		list.menu();
+	}
+}
