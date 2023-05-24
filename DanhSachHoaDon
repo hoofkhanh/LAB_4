@@ -1,0 +1,119 @@
+package bai_2;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class DanhSachHoaDon {
+	private ArrayList<HoaDonKhachHang> list;
+
+	public DanhSachHoaDon(ArrayList<HoaDonKhachHang> list) {
+		this.list = list;
+	}
+	
+	public DanhSachHoaDon() {
+		this.list = new ArrayList<HoaDonKhachHang>();
+	}
+	
+	public void them(HoaDonKhachHang k) {
+		this.list.add(k);
+	}
+	
+	public void xuat() {
+		for (HoaDonKhachHang hoaDonKhachHang : list) {
+			System.out.println(hoaDonKhachHang);
+		}
+	}
+	
+	public int tongSoLuongKhachHangVN() {
+		int soLuong=0;
+		for (HoaDonKhachHang hoaDonKhachHang : list) {
+			if(hoaDonKhachHang instanceof KhachHangVietNam) {
+				soLuong++;
+			}
+		}
+		
+		return soLuong;
+	}
+	
+	public int tongSoLuongKhachHangNN() {
+		int soLuong=0;
+		for (HoaDonKhachHang hoaDonKhachHang : list) {
+			if(hoaDonKhachHang instanceof KhachHangNuocNgoai) {
+				soLuong++;
+			}
+		}
+		
+		return soLuong;
+	}
+	
+	public double tongTrungBinhThanhTienNguoiNN() {
+		int soLuong=0;
+		double tong=0;
+		for (HoaDonKhachHang hoaDonKhachHang : list) {
+			if(hoaDonKhachHang instanceof KhachHangNuocNgoai) {
+				tong += hoaDonKhachHang.thanhTien();
+				soLuong++;
+			}
+		}
+		
+		return tong/ soLuong;
+	}
+	
+	public void xuatTheoNgay() {
+		for (HoaDonKhachHang hoaDonKhachHang : list) {
+			if(hoaDonKhachHang.getNgayHoaDon().equals(LocalDate.now())){
+				System.out.println(hoaDonKhachHang);
+			}
+		}
+	}
+	
+	public void menu() {
+		HoaDonKhachHang hdkh;
+		Scanner sc =new Scanner(System.in);
+		int chon=0;
+		do {
+			System.out.println("1. thêm");
+			System.out.println("2. Xuất");
+			System.out.println("3. tổng trung bình thành tiên của người nước ngoài");
+			System.out.println("4. tổng số lượng viet nam");
+			System.out.println("5. tổng số lượng nước ngoài");
+			System.out.println("6. xuất khách hàng có ngày hôm nay");
+			System.out.println("0. thoát");
+			chon = sc.nextInt();
+			
+			if(chon==1) {
+				int luaChon=0;
+				do {
+					System.out.println("1. Khách hàng việt nam");
+					System.out.println("2. Khách hàng nước ngoài");
+					luaChon=sc.nextInt();
+					
+					if(luaChon==1) {
+						hdkh = new KhachHangVietNam();
+						hdkh.nhap();
+						this.them(hdkh);
+					}else if(luaChon==2) {
+						hdkh = new KhachHangNuocNgoai();
+						hdkh.nhap();
+						this.them(hdkh);
+					}else {
+						System.out.println("Nhập đúng");
+					}
+				}while(luaChon!=1 && luaChon !=2);
+			}else if(chon==2) {
+				this.xuat();
+			}else if(chon==3) {
+				System.out.println("tổng trung bình thành tiền của người nước ngoài : "+this.tongTrungBinhThanhTienNguoiNN());
+			}else if(chon==4) {
+				System.out.println(" số lượng nước ngoài : "+this.tongSoLuongKhachHangNN());
+			}else if(chon==5) {
+				System.out.println(" số lượng VN : "+this.tongSoLuongKhachHangVN());
+			}else if(chon==6) {
+				xuatTheoNgay();
+			}else {
+				System.out.println("Nhập đúng menu");
+			}
+		}while(chon!=0);
+	}
+}
